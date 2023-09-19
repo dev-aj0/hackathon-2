@@ -45,7 +45,58 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+
+  late final List<Widget> _pages; // Declare _pages as a late variable
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Align(
+                child: Text(
+                  'Welcome!',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the Ride Request Screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RideRequestScreen(),
+                  ),
+                );
+              },
+              child: Text('Request a Ride'),
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+      AboutScreen(),
+      ProfileScreen(),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,42 +107,11 @@ class MyHomePage extends StatelessWidget {
         decoration: BoxDecoration(
           // Image set to background of the body
           image: DecorationImage(
-              image: AssetImage("assets/images/background.jpg"),
-              fit: BoxFit.cover),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Align(
-                  child: Text(
-                    'Welcome!',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigate to the Ride Request Screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RideRequestScreen(),
-                    ),
-                  );
-                },
-                child: Text('Request a Ride'),
-              ),
-              SizedBox(height: 20),
-            ],
+            image: AssetImage("assets/images/background.jpg"),
+            fit: BoxFit.cover,
           ),
         ),
+        child: _pages[_selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color.fromRGBO(1, 1, 0, 1),
@@ -111,22 +131,11 @@ class MyHomePage extends StatelessWidget {
         ],
         selectedItemColor: Colors.white,
         unselectedItemColor: Color.fromARGB(255, 179, 177, 177),
+        currentIndex: _selectedIndex,
         onTap: (int index) {
-          if (index == 1) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    AboutScreen(), // Navigate to the AboutScreen
-              ),
-            );
-          } else if (index == 2) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    ProfileScreen(), // Navigate to the ProfileScreen
-              ),
-            );
-          }
+          setState(() {
+            _selectedIndex = index;
+          });
         },
       ),
     );
