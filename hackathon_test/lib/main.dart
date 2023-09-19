@@ -94,7 +94,7 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromRGBO(1, 1, 0, 255),
+        backgroundColor: Color.fromRGBO(1, 1, 0, 1),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -109,7 +109,8 @@ class MyHomePage extends StatelessWidget {
             label: 'Profile',
           ),
         ],
-        selectedItemColor: Colors.black,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Color.fromARGB(255, 179, 177, 177),
         onTap: (int index) {
           if (index == 1) {
             Navigator.of(context).push(
