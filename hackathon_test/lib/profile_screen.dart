@@ -75,6 +75,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 8.0), // Increase padding
+                            child: Text(
+                              'Vehicle: Tesla Model S',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white, // Set text color to white
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ],
